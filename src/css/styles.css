@@ -27,7 +27,7 @@ img {
 .load-wrap {
   display: flex;
   justify-content: center;
-  oadding: top 12px;
+  padding-top: 12px;
   padding-bottom: 36px;
 }
 
