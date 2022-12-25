@@ -25,16 +25,18 @@ loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
 
 function onSearch(e) {
   e.preventDefault();
-  loadMoreBtn.hide();
+  loadMoreBtn.disable();
   try {
     picsApiService.query = e.currentTarget.elements.searchQuery.value;
     if (picsApiService.query === '') {
+      loadMoreBtn.hide();
       return message.emptyQuery();
     }
     picsApiService.resetPage();
     picsApiService.fetchPics().then(({ hits, totalHits }) => {
       clearGallery();
       if (hits.length === 0) {
+        loadMoreBtn.hide();
         return message.failure();
       }
       renderGalleryMarkup(hits);
@@ -44,7 +46,7 @@ function onSearch(e) {
         loadMoreBtn.hide();
         return message.endInfo();
       }
-      loadMoreBtn.show();
+      loadMoreBtn.enable();
     });
   } catch (error) {
     console.log(error);
@@ -53,6 +55,7 @@ function onSearch(e) {
 
 function onLoadMore() {
   try {
+    loadMoreBtn.disable();
     picsApiService.fetchPics().then(({ hits, totalHits }) => {
       if (picsApiService.loadPages > totalHits) {
         renderGalleryMarkup(hits);
@@ -62,7 +65,7 @@ function onLoadMore() {
       }
       renderGalleryMarkup(hits);
       lightbox.refresh();
-      loadMoreBtn.show();
+      loadMoreBtn.enable();
       smoothScroll();
     });
   } catch (error) {
