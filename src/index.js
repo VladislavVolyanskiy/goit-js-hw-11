@@ -10,7 +10,7 @@ let lightbox = new SimpleLightbox('.gallery a');
 
 const refs = {
   searchForm: document.querySelector('.search-form'),
-  searchInput: document.getElementById('searchQuery'),
+  // searchInput: document.getElementById('searchQuery'),
   galleryContainer: document.querySelector('.gallery'),
 };
 
@@ -30,7 +30,8 @@ function onSearch(e) {
 
   try {
     picsApiService.query = e.currentTarget.elements.searchQuery.value.trim();
-    refs.searchInput.value = '';
+    // refs.searchInput.value = '';
+    refs.searchForm.reset();
     if (picsApiService.query === '') {
       loadMoreBtn.hide();
       return message.emptyQuery();
